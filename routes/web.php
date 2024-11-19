@@ -13,10 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home', ['name' => "Илья", 'age' => 22, 'position' => "диван", 'address' => "квартира"]);
+Route::get('/form', function () {
+    return view('form');
 });
+Route::post('/store-form', [\App\Http\Controllers\EmployeeController::class, 'store']);
 
-Route::get('/contacts', function () {
-    return view('contacts', ['address' => "квартира", 'post_code' => 43563, 'email' => "", 'phone' => 87456248747]);
-});
+Route::put('/user/{id}', [\App\Http\Controllers\EmployeeController::class, 'update'])->name('users.update');
