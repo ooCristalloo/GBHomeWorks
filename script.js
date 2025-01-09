@@ -1,51 +1,52 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const slider = document.querySelector('.slider');
-    const slides = document.querySelectorAll('.slide');
-    const prevButton = document.querySelector('.prev-button');
-    const nextButton = document.querySelector('.next-button');
-    const dotsContainer = document.querySelector('.dots');
+const UNSPLASH_API_KEY = '3_UQ6H9sxZbse3IBUHnuxyjI7uo6ul4dsiuGPdilCbQ';
 
-    let currentIndex = 0;
+const dailyImage = document.getElementById('daily-image');
+const photographerInfo = document.getElementById('photographer-info');
+const likeButton = document.getElementById('like-button');
+const likeCount = document.getElementById('like-count');
 
-    // Создаем навигационные точки
-    slides.forEach((_, index) => {
-        const dot = document.createElement('div');
-        dot.classList.add('dot');
-        dot.addEventListener('click', () => goToSlide(index));
-        dotsContainer.appendChild(dot);
-    });
+let currentImageId = '';
 
-    const dots = document.querySelectorAll('.dot');
+// Функция для получения случайного изображения
+async function fetchRandomImage() {
+    try {
+        const response = await fetch(`https://api.unsplash.com/photos/random?client_id=${UNSPLASH_API_KEY}`);
+        const data = await response.json();
 
-    function updateDots() {
-        dots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === currentIndex);
-        });
+        dailyImage.src = data.urls.regular;
+        dailyImage.alt = data.alt_description || 'Случайное изображение';
+        photographerInfo.textContent = `Фотограф: ${data.user.name}`;
+
+        currentImageId = data.id;
+        updateLikeCount();
+    } catch (error) {
+        console.error('Ошибка при загрузке изображения:', error);
     }
+}
 
-    function goToSlide(index) {
-        if (index < 0) {
-            index = slides.length - 1;
-        } else if (index >= slides.length) {
-            index = 0;
-        }
-        slider.style.transform = `translateX(-${index * 100}%)`;
-        currentIndex = index;
-        updateDots();
-    }
+// Функция для обновления счетчика лайков
+function updateLikeCount() {
+    const likes = JSON.parse(localStorage.getItem('imageLikes')) || {};
+    likeCount.textContent = likes[currentImageId] || 0;
+}
 
-    function nextSlide() {
-        goToSlide(currentIndex + 1);
-    }
-
-    function prevSlide() {
-        goToSlide(currentIndex - 1);
-    }
-
-    nextButton.addEventListener('click', nextSlide);
-    prevButton.addEventListener('click', prevSlide);
-
-    // Инициализация
-    updateDots();
+// Обработчик клика по кнопке "Лайк"
+likeButton.addEventListener('click', () => {
+    const likes = JSON.parse(localStorage.getItem('imageLikes')) || {};
+    likes[currentImageId] = (likes[currentImageId] || 0) + 1;
+    localStorage.setItem('imageLikes', JSON.stringify(likes));
+    updateLikeCount();
 });
+
+// Загрузка изображения при загрузке страницы
+fetchRandomImage();
+
+// Проверка и обновление изображения каждый день
+const lastUpdateDate = localStorage.getItem('lastUpdateDate');
+const currentDate = new Date().toDateString();
+
+if (lastUpdateDate !== currentDate) {
+    fetchRandomImage();
+    localStorage.setItem('lastUpdateDate', currentDate);
+}
 

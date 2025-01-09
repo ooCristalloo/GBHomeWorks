@@ -1,22 +1,20 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Слайдер изображений</title>
+    <title>Unsplash Daily Image</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="slider-container">
-    <div class="slider">
-        <img src="https://images.unsplash.com/photo-1416339306562-f3d12fefd36f" alt="Природа" class="slide">
-        <img src="https://images.unsplash.com/photo-1416339306562-f3d12fefd36f" alt="Город" class="slide">
-        <img src="https://images.unsplash.com/photo-1416339306562-f3d12fefd36f" alt="Технологии" class="slide">
-        <img src="https://images.unsplash.com/photo-1416339306562-f3d12fefd36f" alt="Еда" class="slide">
+<div class="container">
+    <h1>Фото дня</h1>
+    <div id="image-container">
+        <img id="daily-image" width="450px" height="450px" src="/placeholder.svg" alt="Фото дня">
     </div>
-    <button class="prev-button">Предыдущее</button>
-    <button class="next-button">Следующее</button>
-    <div class="dots"></div>
+    <div id="photographer-info"></div>
+    <button id="like-button">Лайк</button>
+    <span id="like-count">0</span>
 </div>
 <script src="script.js"></script>
 </body>
