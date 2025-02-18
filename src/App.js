@@ -1,15 +1,24 @@
 import logo from './logo.svg';
 import './App.css';
-import CommentsList from "./components/CommentsList";
+import TemperatureConverter from "./components/TemperatureConverter";
+import {Box} from "@mui/material";
+import TodoList from "./components/TodoList";
 
 function App() {
-  return (
-    <div className="App">
-      <CommentsList/>
-    </div>
-  );
-}
 
+    const CELSIUS = 1;
+    const FAHRENHEIT = 2;
+
+    return (
+        <div className="App">
+            <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems="center" mt={2}>
+                <TemperatureConverter type={CELSIUS}/>
+                <TemperatureConverter type={FAHRENHEIT}/>
+            </Box>
+            <TodoList/>
+        </div>
+    );
+}
 
 
 export default App;
