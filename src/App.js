@@ -1,22 +1,16 @@
-import logo from './logo.svg';
 import './App.css';
-import TemperatureConverter from "./components/TemperatureConverter";
-import {Box} from "@mui/material";
-import TodoList from "./components/TodoList";
+import HomePage from "./components/HomePage";
+import AboutPage from "./components/AboutPage";
+import {BrowserRouter, Route, Router, Routes} from "react-router-dom";
 
 function App() {
-
-    const CELSIUS = 1;
-    const FAHRENHEIT = 2;
-
     return (
-        <div className="App">
-            <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems="center" mt={2}>
-                <TemperatureConverter type={CELSIUS}/>
-                <TemperatureConverter type={FAHRENHEIT}/>
-            </Box>
-            <TodoList/>
-        </div>
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<HomePage/>}/>
+                <Route path="/about" element={<AboutPage/>}/>
+            </Routes>
+        </BrowserRouter>
     );
 }
 
