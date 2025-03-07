@@ -1,20 +1,10 @@
 import './App.css';
-import HomePage from "./components/HomePage";
-import {BrowserRouter, Route, Router, Routes} from "react-router-dom";
-import store from  './components/store/store';
-import {Provider} from 'react-redux'
+import HomePage from "./HomePage";
 
 function App() {
     return (
-        <Provider store={store}>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<HomePage/>}/>
-                </Routes>
-            </BrowserRouter>
-        </Provider>
+        <HomePage/>
     );
 }
-
 
 export default App;
