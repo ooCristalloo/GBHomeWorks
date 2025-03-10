@@ -1,10 +1,12 @@
-import {configureStore} from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import CartReducers from "../reducer/CartReducers";
+import fetchTasks from "../reducer/fetchTasks";
 
 const store = configureStore({
     reducer: {
-        carts: CartReducers
+        tasks: fetchTasks,
+        carts: CartReducers,
     }
-})
+});
 
 export default store;
